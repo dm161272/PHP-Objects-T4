@@ -84,7 +84,6 @@ the name and a message if he has or has not paid taxes (if the salary exceeds 60
             function get_salary (){
                 return $this->salary;
             }
-        }
         
             //function to print employee data
             function to_print($employee){
@@ -100,6 +99,8 @@ the name and a message if he has or has not paid taxes (if the salary exceeds 60
             echo "<b>Employee: </b>" . $first_name . " " . $last_name . ", salary of " . $salary . " EUR " . $taxable . "<br />";
             
             }
+
+        }
         
         
             if (isset($_POST['submit'])) {
@@ -109,7 +110,7 @@ the name and a message if he has or has not paid taxes (if the salary exceeds 60
             
                 $employee = new Employee ($first_name, $last_name, $salary);
               
-                to_print($employee);
+                $employee->to_print($employee);
             
             
                 }
