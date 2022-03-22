@@ -24,6 +24,7 @@ Write a program that defines a *Shape class with a constructor that takes width 
 
 To the file *main define two objects, a triangle and a rectangle and trick the *area method of each one.
 
+
 -->
 
 
@@ -49,7 +50,7 @@ To the file *main define two objects, a triangle and a rectangle and trick the *
 
 
 <?php
-        class Shape {
+        abstract class Shape {
             //Properties
             private $height;
             private $width;
@@ -61,27 +62,18 @@ To the file *main define two objects, a triangle and a rectangle and trick the *
                 $this->height = $height;
                 $this->width = $width;
         
-
             }
         
+            abstract protected function calc_area ($height, $width);
             
-            function get_height (){
-                return $this->height;
-            }
-            
-            function get_width (){
-                return $this->width;
-            }
-
-        
         }
         
         class Rectangle extends Shape {
 
 
-            public function calc_area ($sh) {
+            public function calc_area ($height, $width) {
         
-                $area = $sh->get_height() * $sh->get_width();
+                $area = $height * $width;
                 return $area;
 
             }
@@ -91,10 +83,9 @@ To the file *main define two objects, a triangle and a rectangle and trick the *
 
         class Triangle extends Shape {
 
-
-            public function calc_area ($sh) {
+            public function calc_area ($height, $width) {
         
-                $area =  $sh->get_height() * $sh->get_width() / 2;
+                $area =  $height * $width / 2;
                 return $area;
                
 
@@ -102,13 +93,11 @@ To the file *main define two objects, a triangle and a rectangle and trick the *
             
         }
 
-        
             if (isset($_POST['submit'])) {
                 $height = $_POST['ht'];
                 $width = $_POST['wh'];
                 $shape = $_POST['shape'];
             
-
                 if ($shape == "rect") {
                 $sh = new Rectangle ($height, $width);
                 } 
@@ -116,9 +105,8 @@ To the file *main define two objects, a triangle and a rectangle and trick the *
                 $sh = new Triangle ($height, $width);
                 }
             
-              echo "The area of " . get_class ($sh) . " is: " . $sh->calc_area($sh);
+              echo "The area of " . get_class ($sh) . " is: " . $sh->calc_area($height, $width);
              
-            
             
                 }
             
