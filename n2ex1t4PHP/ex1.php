@@ -18,48 +18,68 @@ Also, program the *getTotalThrows method which has to show the total number of t
 */
 echo "<title>*POKER*</title>";
 
-define ("SIDE_1", "Ace");
-define ("SIDE_2", "K");
-define ("SIDE_3", "Q");
-define ("SIDE_4", "J");
-define ("SIDE_5", "7");
-define ("SIDE_6", "8");
-      
+
+    
 class PokerDice {
+
+private $dice_array = array ();
+private static $counter = 0;
+
+
+
+function __construct () {
+
+$this->dice_array = array ("Ace", "K", "Q", "J", "7", "8");
+self::$counter++;
+
+}
+
 
 function throw () {
 
-  $th = rand (1, 6);
+  $th = rand (0, 5);
   return $th;
 
 }
 
 function side_up ($dice) {
 
-  $up = constant ("SIDE_" . $dice -> throw());
+  $index = $dice->throw();
+ 
+  $up = $dice->dice_array[$index];
   return $up;
 }
 
+function get_total_throws () {
+
+    $count = PokerDice::$counter;
+    return $count;
+
 }
 
-$dice1 = new PokerDice;
-$dice2 = new PokerDice;
-$dice3 = new PokerDice;
-$dice4 = new PokerDice;
-$dice5 = new PokerDice;
+}
+
+
 
 echo "<h1>Poker game</h1>";
 
-echo "<h2>";
-echo $dice1->side_up($dice1) . "<br \>";
 
-echo $dice2->side_up($dice2) . "<br \>";
+for ($i = 0; $i <= 4; $i++) {
 
-echo $dice3->side_up($dice3) . "<br \>";
+$dice = "dice" . ($i + 1);
 
-echo $dice4->side_up($dice4) . "<br \>";
+$$dice = new PokerDice;;
 
-echo $dice5->side_up($dice5) . "<br \>";
-echo "</h2>";
+//echo var_dump ($$dice);
+
+$turn = $$dice->side_up($$dice);
+
+echo "<h2>" . $turn . "</h2> ";
+
+}
+
+echo "<h2>Number of throws: " . $$dice->get_total_throws() . "</h2>";
+
+
 
 
