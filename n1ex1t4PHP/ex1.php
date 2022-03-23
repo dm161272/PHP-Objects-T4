@@ -73,24 +73,12 @@ the name and a message if he has or has not paid taxes (if the salary exceeds 60
             }
         
             
-            function get_first_name (){
-                return $this->first_name;
-            }
-            
-            function get_last_name (){
-                return $this->last_name;
-            }
-            
-            function get_salary (){
-                return $this->salary;
-            }
-        
             //function to print employee data
             function to_print($employee){
             $taxable = "is taxable.";
-            $first_name = $employee->get_first_name();
-            $last_name = $employee->get_last_name();
-            $salary = $employee->get_salary();
+            $first_name = $this->first_name;
+            $last_name = $this->last_name;
+            $salary = $this->salary;
             $taxbias = 6000;
             if ($salary <= $taxbias) {
                 $taxable = "is NOT taxable.";
