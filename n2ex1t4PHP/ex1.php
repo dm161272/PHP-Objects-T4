@@ -62,7 +62,7 @@ function get_total_throws () {
 
 
 echo "<h1>Poker game</h1>";
-
+for ($j = 0; $j<=9; $j++) {
 
 for ($i = 0; $i <= 4; $i++) {
 
@@ -74,12 +74,12 @@ $$dice = new PokerDice;;
 
 $turn = $$dice->side_up($$dice);
 
-echo "<h2>" . $turn . "</h2> ";
+echo $turn . " ";
 
 }
-
-echo "<h2>Number of throws: " . $$dice->get_total_throws() . "</h2>";
-
+echo "<br \>";
+}
+echo "<h2>Number of throws: " . $$dice->get_total_throws() . "</$turn>";
 
 
 
