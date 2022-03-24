@@ -1,3 +1,11 @@
+<?php
+
+require_once ("client.php");
+require_once ("account.php");
+  session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,47 +53,69 @@ Fez the relevant validations to ensure that the amount entered by the user is co
 
         <label>Last name: </label> <input type="text" name="ln" value=""><br />
 
-        <label>Account number: </label> <input type="number" name="num" value="1"><br />
+        <label>Account number: </label> <input type="number" name="num" value=""><br />
 
-       
         
+        <br />
+        <div><input type="submit" value="Submit" name="submit"></div>
+        <br />
 
-        <h3>Deposit:</h3>
-    
-
-        <label>Deposit amount:</label> <input type="text" name="dp" value=""><br />
-
-        <label><input type="submit" value="Submit" name="submit"></label><br />
         </form>
 
 
-<?php
-        
-        require_once ("client.php");
-        require_once ("account.php");
+        <h3>Deposit:</h3>
+       <form action ="" method ="POST" style="display: table;">
 
-        $array = array();
+        <label>Amount:</label> <input type="number" name="dp" value="777" ><br />
+
+        <br />
+        <div><input type="submit" value="Submit" name="deposit"></div>
+        <br />
+
+        </form>
+
+       
+<?php
+
+      
+
+
+        if (!isset($_SESSION['array'])) {
+        $_SESSION['array'] = array();
+        }
         
+                   
             if (isset($_POST['submit'])) {
                 $fn = $_POST['fn'];
                 $ln = $_POST['ln'];
                 $num = $_POST['num'];
 
-               $client = new Client ($fn, $ln, $num);
+                $client = new Client ($fn, $ln, $num);
 
-                array_push ($array, $client);
-                echo var_dump ($array);
-        
+                //array_push ($_SESSION["array"], $client);
+
+                $_SESSION['array'][] = $client;
+               
+                  echo var_dump ($_SESSION['array']);
                 
-            
-              
-                    $dp = $_POST['dp'];
-                 
-        
-                    echo Account::deposit($num, $dp);
-
                 }
+                
+                echo "<br \>";
 
+
+                if (isset($_POST['deposit'])) {
+                  $dp = $_POST['dp'];
+
+
+
+                    echo $dp;
+          
+                  }
+
+
+                // session_destroy();
+                // { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_name"]=> string(0) "" 
+                 // ["account"]=> object(Account)#2 (2) { ["account_number"]=> string(0) "" ["account_balance":"Account":private]=> int(0) } } 
             ?>
 
 
