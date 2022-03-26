@@ -1,30 +1,11 @@
 <?php
 
-require_once ("client.php");
 require_once ("account.php");
-  session_start();
-?>
+session_start();
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-      label {
-        display: inline-block;
-        width: 100px;
-        text-align: left;
-      }
-    </style>
-    <title>Document</title>
-</head>
-<body>
 
-
-<!--
+/*
 
 Create a Banks project, add to the project an *Account class with attributes for account number, name and surname 
 of the client and the current balance. Define the following methods in the class:
@@ -39,85 +20,200 @@ withdraw the balance of the account.
 
 Fez the relevant validations to ensure that the amount entered by the user is correct.
 
--->
+array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_name"]=> string(0) ""
+   ["account"]=> object(Account)#2 (2)
+   { ["account_number"]=> string(0) "" ["account_balance":"Account":private]=> int(0) } }
 
 
-
-   
-<h2>Bank project</h2>
-    
-    <h3>Enter client's data below:</h3>
-    <form action ="" method ="POST" style="display: table;">
-
-        <label>First name:</label> <input type="text" name="fn" value="" ><br />
-
-        <label>Last name: </label> <input type="text" name="ln" value=""><br />
-
-        <label>Account number: </label> <input type="number" name="num" value=""><br />
-
-        
-        <br />
-        <div><input type="submit" value="Submit" name="submit"></div>
-        <br />
-
-        </form>
+*/
 
 
-        <h3>Deposit:</h3>
-       <form action ="" method ="POST" style="display: table;">
-
-        <label>Amount:</label> <input type="number" name="dp" value="777" ><br />
-
-        <br />
-        <div><input type="submit" value="Submit" name="deposit"></div>
-        <br />
-
-        </form>
-
-       
-<?php
-
-      
 
 
         if (!isset($_SESSION['array'])) {
         $_SESSION['array'] = array();
         }
         
-                   
-            if (isset($_POST['submit'])) {
+      
+         $size = count ($_SESSION['array']);
+
+
+              if (isset($_POST['submit'])) {
+                
                 $fn = $_POST['fn'];
                 $ln = $_POST['ln'];
                 $num = $_POST['num'];
+              
 
-                $client = new Client ($fn, $ln, $num);
-
-                //array_push ($_SESSION["array"], $client);
-
-                $_SESSION['array'][] = $client;
+              if (!input_check($fn) || !input_check($ln) || !input_check($num)) {
+                echo "Fields can't be empty!";
+                require_once ("index.php");
                
-                  echo var_dump ($_SESSION['array']);
+              }
+            
+
+               
+
                 
-                }
-                
-                echo "<br \>";
+
+
+               if (name_check($fn, $ln) != NULL) {
+
+                echo "Client " . $fn . " " . $ln . " already exists!<br />";
+
+               }
+              else 
+              {
+                $account = new Account ($fn, $ln, $num);
+               
+                $_SESSION['array'][] = $account;
+
+                echo "New client " . $fn . " " . $ln . " added to database!<br />";
+              }
+              echo "<a href = index.php>Return to main menu</a>";
+
+               }
+            
+  
+                echo "<br />";
+
+
 
 
                 if (isset($_POST['deposit'])) {
+                  $fn = $_POST['fn'];
+                  $ln = $_POST['ln'];
+                  $num = $_POST['num'];
                   $dp = $_POST['dp'];
 
 
+                  make_deposit ($fn, $ln, $dp);
 
-                    echo $dp;
-          
+                }
+
+
+                if (isset($_POST['withdraw'])) {
+                  $fn = $_POST['fn'];
+                  $ln = $_POST['ln'];
+                  $num = $_POST['num'];
+                  $wd = $_POST['wd'];
+
+                  make_withdraw ($fn, $ln, $wd);
+
+                }
+                  
+
+                  function name_check($fn, $ln) {
+                
+                  $size = count ($_SESSION['array']);
+                  $i = 0;
+                  $object;
+                   
+                   if ($size != 0) {
+                   do {
+                  
+                    if ($fn == $_SESSION['array'][$i]->first_name && $ln == $_SESSION['array'][$i]->last_name) {
+                      
+               
+                      $object = $_SESSION['array'][$i];
+                    } 
+                  
+                    $i++;
+                  } while ($i < $size && !$checker);
+                }      
+                  return $object;
+                }
+              
+
+
+                function account_check($num, $account) {
+                
+                  $checker = true;
+                    if ($num != $account->account) {
+ 
+                      $checker = false;
+                }      
+                  return $checker;
+                }
+
+
+
+
+
+                function input_check ($check) {
+
+                  $checker = true;
+
+                  if(!isset($check) || trim($check) == '') {
+
+                    $checker = false;
                   }
 
-
-                // session_destroy();
-                // { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_name"]=> string(0) "" 
-                 // ["account"]=> object(Account)#2 (2) { ["account_number"]=> string(0) "" ["account_balance":"Account":private]=> int(0) } } 
-            ?>
+                }
 
 
-    </body>
-    </html>
+
+                function make_deposit ($fn, $ln, $dp) {
+
+                  $size = count ($_SESSION['array']);
+                  $i = 0;
+                  $checker = false;
+                  $account = name_check($fn, $ln);
+                  $mode = 1;
+
+                  
+                  if (isset($account)) {
+
+                    echo "Account number: " . $account->get_account_number() . "<br />";
+                    echo "Account balance: " . $balance = $account->get_account_balance() . "<br />";
+
+                    if (!($account->check_balance($balance, $dp, $mode))) {
+
+                    $to_print = "<br />Amount must be higher than 0!<br />";
+                    }
+                    else
+                    {
+
+                    $balance = $account->deposit($dp);
+                    $to_print = "Deposit accepted!<br />New account balance: " . $balance;
+                    }
+                  }
+                  echo $to_print . "<br />";
+                  echo "<a href = index.php>Return to main menu</a>";
+                  }
+
+                
+
+
+
+                function make_withdraw ($fn, $ln, $wd) {
+
+                  $size = count ($_SESSION['array']);
+                  $i = 0;
+                  $checker = false;
+                  $account = name_check($fn, $ln);
+                  $mode = 2;
+                  if (isset($account)) {
+
+                    echo "Account number: " . $account->get_account_number() . "<br />";
+                    echo "Account balance: " . $balance = $account->get_account_balance() . "<br />";
+
+                    if (!($account->check_balance($balance, $wd, $mode))) {
+
+                    $to_print = "<br />Please choose amount smaller or equal to: " . $balance . "<br />";
+                    }
+                    else
+                    {
+                    $balance = $account->withdraw($wd);
+                    $to_print = "Withdraw accepted!<br />New account balance: " . $balance;
+                  }
+
+                  }
+
+                  echo $to_print . "<br />";
+                  echo "<a href = index.php>Return to main menu</a>";
+                }
+
+          
+            
+                 ?>

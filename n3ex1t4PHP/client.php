@@ -17,26 +17,26 @@ Fez the relevant validations to ensure that the amount entered by the user is co
 
 */
 
-require_once ("account.php");
+// require_once ("account.php");
 
 
-class Client {
+// class Client {
 
-public $first_name;
-public $last_name;
+// public $first_name;
+// public $last_name;
 
-function __construct ($first_name, $last_name, $account_number) {
+// function __construct ($first_name, $last_name, $account_number) {
 
-$this->first_name = $first_name;
-$this->last_name = $last_name;
+// $this->first_name = $first_name;
+// $this->last_name = $last_name;
 
-$this->account = new Account ($account_number);
+// $this->account = new Account ($account_number);
 
-}
-
-
-
+// }
 
 
 
-}
+
+
+
+//}

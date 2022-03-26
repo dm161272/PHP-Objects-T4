@@ -17,53 +17,87 @@ Fez the relevant validations to ensure that the amount entered by the user is co
 
 */
 
-require_once ("client.php");
 
 class Account {
+
+    public $first_name;
+    public $last_name;
 
     public $account_number;
     private $account_balance;
 
 
-function __construct ($account_number) {
-  
+    
+    function __construct ($first_name, $last_name, $account_number, $account_balance = 0) {
+    
+    $this->first_name = $first_name;
+    $this->last_name = $last_name;
+    
     $this->account_number = $account_number;
-    $this->account_balance = 0;
+    $this->account_balance = $account_balance;
+    
+    }
+
+// class Account {
+
+//     public $account_number;
+//     private $account_balance;
+
+
+// function __construct ($account_number) {
+  
+//     $this->account_number = $account_number;
+//     $this->account_balance = 0;
+// }
+
+
+function get_account_balance() {
+
+    return $this->account_balance;
+}
+
+function get_account_number() {
+
+    return $this->account_number;
 }
 
 
-function deposit ($account_number, $amount) {
 
-    $account_balance = $account_number->$account_balance + $amount;
+function deposit ($amount) {
 
-    return $account_balance;
+    $this->account_balance += $amount;
 
-}
-
-function withdraw ($account_number, $amount) {
-
-    if (checker ($account_number->$account_balance)) {
-
-    $account_balance = $account_number->$account_balance - $amount;   
-
-    return $account_balance;
+    return $this->account_balance;
 
 }
 
+function withdraw ($amount) {
+
+
+    $this->account_balance -= $amount;   
+
+    return $this->account_balance;
 
 }
 
 
-function checker ($account_balance) {
+
+
+function check_balance ($account_balance, $amount, $mode) {
 
     $checker = true;
+    if ($amount <= 0 && $mode == 1) {
 
-if ($account_balance <= 0) {
+        $checker = false;
+    }
+        
+    if (($account_balance - $amount < 0 || $amount <= 0) && $mode == 2) {
+        
+        $checker = false;
+    }
 
-    $checker = false;
-}
-
-}
+    return $checker;
+    }
 
 
 
