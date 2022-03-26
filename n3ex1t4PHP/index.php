@@ -9,8 +9,19 @@
     <style>
       label {
         display: inline-block;
-        width: 100px;
+        width: 130px;
         text-align: left;
+        background-color: lightgrey;
+      }
+
+      div {
+        display:inline-block;
+        margin: 10px;
+      }
+
+      body {
+
+        background-color: lightgrey;
       }
     </style>
     <title>Document</title>
@@ -40,8 +51,13 @@ Fez the relevant validations to ensure that the amount entered by the user is co
    
 <h2>Bank project</h2>
 
-<a href="unset.php">Clear the DATABASE!!!</a>
-    
+
+<div>
+
+    <a href="unset.php">Clear the DATABASE!!!</a>
+
+    <div>
+
     <h3>Add client:</h3>
     <form action ="bank.php" method ="POST" style="display: table;">
 
@@ -50,16 +66,17 @@ Fez the relevant validations to ensure that the amount entered by the user is co
         <label>Last name: </label> <input type="text" name="ln" value=""><br />
 
         <label>Account number: </label> <input type="number" name="num" value=""><br />
-
+        <br />
+        <br />
         <br />
         <div><input type="submit" value="Submit" name="submit"></div>
         <br />
        
         </form>
-
+      </div>
         
 
-
+      <div>
         <h3>Deposit:</h3>
        <form action ="bank.php" method ="POST" style="display: table;">
 
@@ -67,7 +84,7 @@ Fez the relevant validations to ensure that the amount entered by the user is co
 
         <label>Last name: </label> <input type="text" name="ln" value=""><br />
 
-        <label>Account number: </label> <input type="number" name="num" value=""><br />
+        <label>Account number: </label> <input type="number" name="num" value=""><br /><br />
 
         <label>Amount:</label> <input type="number" name="dp" value=""><br />
 
@@ -76,9 +93,22 @@ Fez the relevant validations to ensure that the amount entered by the user is co
         <br />
 
         </form>
+        </div>
+
+                                                <!-- <form action="/action_page.php">
+                                          <label for="cars">Choose a car:</label>
+                                          <select name="cars" id="cars">
+                                            <option value="volvo">Volvo</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="opel">Opel</option>
+                                            <option value="audi">Audi</option>
+                                          </select>
+                                          <br><br>
+                                          <input type="submit" value="Submit">
+                                        </form> -->
 
 
-
+        <div>
         <h3>Withdraw:</h3>
         <form action ="bank.php" method ="POST" style="display: table;">
  
@@ -86,7 +116,7 @@ Fez the relevant validations to ensure that the amount entered by the user is co
  
          <label>Last name: </label> <input type="text" name="ln" value=""><br />
  
-         <label>Account number: </label> <input type="number" name="num" value=""><br />
+         <label>Account number: </label> <input type="number" name="num" value=""><br /><br />
  
          <label>Amount:</label> <input type="number" name="wd" value=""><br />
  
@@ -94,8 +124,10 @@ Fez the relevant validations to ensure that the amount entered by the user is co
          <div><input type="submit" value="Withdraw" name="withdraw"></div>
          <br />
          </form>
+         </div>
+         
 
-
+</div>
 
     </body>
     </html>

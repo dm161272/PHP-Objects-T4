@@ -45,21 +45,12 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                 $num = $_POST['num'];
               
 
-              if (!input_check($fn) || !input_check($ln) || !input_check($num)) {
-                echo "Fields can't be empty!";
-                require_once ("index.php");
-               
-              }
-            
-
-               
-
-                
 
 
-               if (name_check($fn, $ln) != NULL) {
 
-                echo "Client " . $fn . " " . $ln . " already exists!<br />";
+               if (name_check($fn, $ln, $num) != NULL) {
+
+                echo "Client " . $fn . " " . $ln . " with account: " . $num . " already exists!<br />";
 
                }
               else 
@@ -87,7 +78,7 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                   $dp = $_POST['dp'];
 
 
-                  make_deposit ($fn, $ln, $dp);
+                  make_deposit ($fn, $ln, $num, $dp);
 
                 }
 
@@ -98,12 +89,12 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                   $num = $_POST['num'];
                   $wd = $_POST['wd'];
 
-                  make_withdraw ($fn, $ln, $wd);
+                  make_withdraw ($fn, $ln, $num, $wd);
 
                 }
                   
 
-                  function name_check($fn, $ln) {
+                  function name_check($fn, $ln, $num) {
                 
                   $size = count ($_SESSION['array']);
                   $i = 0;
@@ -112,7 +103,8 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                    if ($size != 0) {
                    do {
                   
-                    if ($fn == $_SESSION['array'][$i]->first_name && $ln == $_SESSION['array'][$i]->last_name) {
+                    if ($fn == $_SESSION['array'][$i]->first_name && $ln == $_SESSION['array'][$i]->last_name 
+                    && $num == $_SESSION['array'][$i]->account_number) {
                       
                
                       $object = $_SESSION['array'][$i];
@@ -125,40 +117,12 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                 }
               
 
-
-                function account_check($num, $account) {
-                
-                  $checker = true;
-                    if ($num != $account->account) {
- 
-                      $checker = false;
-                }      
-                  return $checker;
-                }
-
-
-
-
-
-                function input_check ($check) {
-
-                  $checker = true;
-
-                  if(!isset($check) || trim($check) == '') {
-
-                    $checker = false;
-                  }
-
-                }
-
-
-
-                function make_deposit ($fn, $ln, $dp) {
+                function make_deposit ($fn, $ln, $num, $dp) {
 
                   $size = count ($_SESSION['array']);
                   $i = 0;
                   $checker = false;
-                  $account = name_check($fn, $ln);
+                  $account = name_check($fn, $ln, $num);
                   $mode = 1;
 
                   
@@ -178,6 +142,10 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                     $to_print = "Deposit accepted!<br />New account balance: " . $balance;
                     }
                   }
+                  else
+                  {
+                    echo "This record does not exists!";
+                  }
                   echo $to_print . "<br />";
                   echo "<a href = index.php>Return to main menu</a>";
                   }
@@ -186,12 +154,12 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
 
 
 
-                function make_withdraw ($fn, $ln, $wd) {
+                function make_withdraw ($fn, $ln, $num, $wd) {
 
                   $size = count ($_SESSION['array']);
                   $i = 0;
                   $checker = false;
-                  $account = name_check($fn, $ln);
+                  $account = name_check($fn, $ln, $num);
                   $mode = 2;
                   if (isset($account)) {
 
@@ -208,6 +176,10 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                     $to_print = "Withdraw accepted!<br />New account balance: " . $balance;
                   }
 
+                  }
+                  else
+                  {
+                    echo "This record does not exists!";
                   }
 
                   echo $to_print . "<br />";
