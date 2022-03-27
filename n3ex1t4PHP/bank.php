@@ -98,7 +98,7 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                 
                   $size = count ($_SESSION['array']);
                   $i = 0;
-                  $object;
+                  $object = NULL;
                    
                    if ($size != 0) {
                    do {
@@ -111,7 +111,7 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                     } 
                   
                     $i++;
-                  } while ($i < $size && !$checker);
+                  } while ($i < $size && $object = NULL);
                 }      
                   return $object;
                 }
@@ -123,7 +123,8 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                   $i = 0;
                   $checker = false;
                   $account = name_check($fn, $ln, $num);
-                  $mode = 1;
+                 
+                  $to_print = NULL;
 
                   
                   if (isset($account)) {
@@ -160,7 +161,8 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                   $i = 0;
                   $checker = false;
                   $account = name_check($fn, $ln, $num);
-                  $mode = 2;
+                  $mode = 1;
+                  $to_print = NULL;
                   if (isset($account)) {
 
                     echo "Account number: " . $account->get_account_number() . "<br />";

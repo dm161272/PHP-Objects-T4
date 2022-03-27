@@ -38,18 +38,6 @@ class Account {
     
     }
 
-// class Account {
-
-//     public $account_number;
-//     private $account_balance;
-
-
-// function __construct ($account_number) {
-  
-//     $this->account_number = $account_number;
-//     $this->account_balance = 0;
-// }
-
 
 function get_account_balance() {
 
@@ -83,15 +71,17 @@ function withdraw ($amount) {
 
 
 
-function check_balance ($account_balance, $amount, $mode) {
+function check_balance ($account_balance, $amount, $mode = 0) {
 
     $checker = true;
-    if ($amount <= 0 && $mode == 1) {
+    $mode = (int) $mode;
+
+    if ($amount <= 0 && $mode == 0) {
 
         $checker = false;
     }
         
-    if (($account_balance - $amount < 0 || $amount <= 0) && $mode == 2) {
+    if ((($account_balance - $amount) < 0 || $amount <= 0) && $mode == 1) {
         
         $checker = false;
     }
