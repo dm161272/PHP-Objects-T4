@@ -63,6 +63,7 @@ the name and a message if he has or has not paid taxes (if the salary exceeds 60
             public $first_name;
             public $last_name;
             public $salary;
+            private static $taxbias = 6000;
             
             //Methods
             function __construct ($first_name, $last_name, $salary) {
@@ -74,15 +75,14 @@ the name and a message if he has or has not paid taxes (if the salary exceeds 60
         
             
             //function to print employee data
-            function to_print($employee){
+            function to_print(){
             $taxable = "is taxable.";
-            $taxbias = 6000;
-           
-            if ($employee->salary <= $taxbias) {
+            
+            if ($this->salary <= Employee::$taxbias) {
                 $taxable = "is NOT taxable.";
             }
             
-            echo "<b>Employee: </b>" . $employee->first_name . " " . $employee->last_name . ", salary of " . $employee->salary . " EUR " . $taxable . "<br />";
+            echo "<b>Employee: </b>" . $this->first_name . " " . $this->last_name . ", salary of " . $this->salary . " EUR " . $taxable . "<br />";
             
             }
 
@@ -96,7 +96,7 @@ the name and a message if he has or has not paid taxes (if the salary exceeds 60
             
                 $employee = new Employee ($first_name, $last_name, $salary);
               
-                $employee->to_print($employee);
+                $employee->to_print();
             
             
                 }
