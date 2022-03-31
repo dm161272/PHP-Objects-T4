@@ -132,7 +132,7 @@ array(4) { [0]=> object(Client)#1 (3) { ["first_name"]=> string(0) "" ["last_nam
                     echo "Account number: " . $account->get_account_number() . "<br />";
                     echo "Account balance: " . $balance = $account->get_account_balance() . "<br />";
 
-                    if (!($account->check_balance($balance, $dp, $mode))) {
+                    if (!($account->check_balance($balance, $dp))) {
 
                     $to_print = "<br />Amount must be higher than 0!<br />";
                     }
