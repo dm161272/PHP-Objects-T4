@@ -30,7 +30,6 @@ private static $counter = 0;
 function __construct () {
 
 $this->dice_array = array ("Ace", "K", "Q", "J", "7", "8");
-self::$counter++;
 
 }
 
@@ -38,6 +37,7 @@ self::$counter++;
 function throw () {
 
   $th = rand (0, 5);
+  self::$counter++;
   return $th;
 
 }
