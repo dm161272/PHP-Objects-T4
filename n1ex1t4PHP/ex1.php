@@ -30,6 +30,9 @@ Create a class *Employee defines his name and salary as attributes. Define a met
 that receives the name and salary as parameters. Propose a second method *print that prints 
 the name and a message if he has or has not paid taxes (if the salary exceeds 6000 he pays taxes).
 
+Exercise 1 in level 1 is running great but still having some misunderstood things in terms of 
+object instantiation. 
+You don't need to pass and employe to print method.
 
 -->
 
