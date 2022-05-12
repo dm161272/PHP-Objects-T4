@@ -19,8 +19,8 @@ In Level 2, why are you merging the throw and the show steps? Also, you can impr
 
 Other thing its, why don't you create 5 dice and then throw it the times that you want? Its better that creating a dice eeevery time.
 
-*/
 
+*/
 echo "<title>*POKER*</title>";
 
 
@@ -75,9 +75,9 @@ for ($i = 0; $i <= 4; $i++) {
 //making 10 throws of created dices
 for ($j = 0; $j <= 9; $j++) {
 
-    $throw = $$dice->throw();
+    $index = $$dice->throw();
 
-    $turn = $$dice->side_up($throw);
+    $turn = $$dice->side_up($index);
 
 echo $turn . " ";
 
