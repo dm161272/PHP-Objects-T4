@@ -69,21 +69,25 @@ for ($i = 0; $i <= 4; $i++) {
 
     $dice = "dice" . ($i + 1);
     
-    $$dice = new PokerDice;;
+    $$dice = new PokerDice;
 }
 
 //making 10 throws of created dices
-for ($j = 0; $j <= 9; $j++) {
+for ($j = 0; $j < 2; $j++) {
 
+for ($i = 1; $i <= 5; $i++) {
+
+    $dice = "dice" . ($i);
     $index = $$dice->throw();
 
     $turn = $$dice->side_up($index);
 
-echo $turn . " ";
+echo var_dump($$dice) . " ----- " . $turn . " ";
 
 echo "<br \>";
 }
 
+}
 
 echo "<h2>Number of throws: " . $$dice->get_total_throws() . "</$turn>";
 
